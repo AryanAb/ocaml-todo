@@ -41,9 +41,19 @@ let do_command command_type params =
   | _ -> print_error "Command type not found"
 
 let command =
+  let readme_str = 
+    "These are the todo commands used in various situation
+
+    add             adds a task to the to-do list as defined by [PARAMS]
+    list, ls        lists current tasks on the to-do list
+    remove, rm      removes the task on the line number as specified by [PARAMS]
+
+    To see specific examples, check https://github.com/AryanAb/ocaml-todo
+    " 
+  in
   Command.basic
   ~summary:"A CLI tool to manage your to-do list"
-  ~readme:(fun () -> "More detailed information")
+  ~readme:(fun () -> readme_str)
   (let%map_open.Command
     command_type = anon ("type" %: string) and
     params = anon (maybe ("param" %: string)) 
